@@ -1,0 +1,10 @@
+name: Celeste
+version: 1.0
+author: Idrees
+main: com.idreesinc.celeste.Celeste
+
+commands:
+  idrees:
+    description: Provides love and support
+    usage: /<command>
+    permission: celeste.idrees
