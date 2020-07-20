@@ -8,3 +8,7 @@ commands:
     description: Provides love and support
     usage: /<command>
     permission: celeste.idrees
+  star:
+    description: Creates a shooting star
+    usage: /<command>
+    permission: celeste.star
