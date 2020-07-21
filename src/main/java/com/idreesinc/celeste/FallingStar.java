@@ -9,16 +9,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Random;
 
-public class FallingStarTask extends BukkitRunnable {
+public class FallingStar extends BukkitRunnable {
 
+    private Celeste celeste;
     private Location location;
     private Location dropLoc;
     private double y = 256;
     private boolean soundPlayed = false;
     private boolean lootDropped = false;
-    private int sparkTimer = 200;
+    private int sparkTimer;
 
-    public FallingStarTask(Location location) {
+    public FallingStar(Celeste celeste, Location location) {
+        this.celeste = celeste;
+        sparkTimer = celeste.getConfig().getInt("falling-stars-spark-time");
         this.location = location;
         dropLoc = new Location(location.getWorld(), location.getX(),
                 location.getWorld().getHighestBlockAt(location).getY() + 1, location.getZ());
@@ -46,8 +49,10 @@ public class FallingStarTask extends BukkitRunnable {
         }
         if (y <= dropLoc.getY()) {
             if (!lootDropped) {
-                ItemStack drop = new ItemStack(Material.DIAMOND, 1);
-                location.getWorld().dropItem(dropLoc, drop);
+                if (celeste.fallingStarDrops.entries.size() > 0) {
+                    ItemStack drop = new ItemStack(Material.valueOf(celeste.fallingStarDrops.getRandom()), 1);
+                    location.getWorld().dropItem(dropLoc, drop);
+                }
                 lootDropped = true;
             }
             if (y % (step * 5) == 0) {

@@ -3,13 +3,12 @@ package com.idreesinc.celeste;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
 
-public class ShootingStarHandler {
+public class CelestialSphere {
     public static void createShootingStar(Player player) {
         createShootingStar(player.getLocation());
     }
@@ -27,18 +26,18 @@ public class ShootingStarHandler {
                 direction.getY(), direction.getZ(), new Random().nextDouble() * 1.5 + 0.75, null, true);
     }
 
-    public static void createFallingStar(Plugin plugin, Player player) {
-        createFallingStar(plugin, player.getLocation());
+    public static void createFallingStar(Celeste celeste, Player player) {
+        createFallingStar(celeste, player.getLocation());
     }
 
-    public static void createFallingStar(Plugin plugin, final Location location) {
+    public static void createFallingStar(Celeste celeste, final Location location) {
         double fallingStarRadius = 100;
         double w = fallingStarRadius * Math.sqrt(new Random().nextDouble());
         double t = 2d * Math.PI * new Random().nextDouble();
         double x = w * Math.cos(t);
         double z = w * Math.sin(t);
         Location target = new Location(location.getWorld(), location.getX() + x, location.getY(), location.getZ() + z);
-        BukkitRunnable fallingStarTask = new FallingStarTask(target);
-        fallingStarTask.runTaskTimer(plugin, 0, 1);
+        BukkitRunnable fallingStarTask = new FallingStar(celeste, target);
+        fallingStarTask.runTaskTimer(celeste, 0, 1);
     }
 }
