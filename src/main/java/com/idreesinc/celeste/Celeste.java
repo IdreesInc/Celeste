@@ -24,7 +24,6 @@ public class Celeste extends JavaPlugin {
             // Use default loot table
             loot = this.getConfig().getDefaults().getConfigurationSection("falling-stars-loot");
         }
-        System.out.println(this.getConfig().getDouble("falling-stars-spark-time"));
         if (loot != null) {
             for (String key : loot.getKeys(false)) {
                 try {

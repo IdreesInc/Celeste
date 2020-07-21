@@ -15,6 +15,9 @@ public class Astronomer extends BukkitRunnable {
     }
 
     public void run() {
+        if (celeste.getServer().getOnlinePlayers().size() == 0) {
+            return;
+        }
         if (new Random().nextDouble() <= celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d) {
             CelestialSphere.createShootingStar(getRandomPlayer());
             System.out.println("Spawning shooting star");

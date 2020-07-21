@@ -31,7 +31,7 @@ public class CelestialSphere {
     }
 
     public static void createFallingStar(Celeste celeste, final Location location) {
-        double fallingStarRadius = 100;
+        double fallingStarRadius = celeste.getConfig().getDouble("falling-stars-radius");
         double w = fallingStarRadius * Math.sqrt(new Random().nextDouble());
         double t = 2d * Math.PI * new Random().nextDouble();
         double x = w * Math.cos(t);

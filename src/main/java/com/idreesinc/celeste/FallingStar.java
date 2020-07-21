@@ -4,6 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -11,9 +13,9 @@ import java.util.Random;
 
 public class FallingStar extends BukkitRunnable {
 
-    private Celeste celeste;
-    private Location location;
-    private Location dropLoc;
+    private final Celeste celeste;
+    private final Location location;
+    private final Location dropLoc;
     private double y = 256;
     private boolean soundPlayed = false;
     private boolean lootDropped = false;
@@ -53,6 +55,8 @@ public class FallingStar extends BukkitRunnable {
                     ItemStack drop = new ItemStack(Material.valueOf(celeste.fallingStarDrops.getRandom()), 1);
                     location.getWorld().dropItem(dropLoc, drop);
                 }
+                ExperienceOrb orb = (ExperienceOrb) dropLoc.getWorld().spawnEntity(dropLoc, EntityType.EXPERIENCE_ORB);
+                orb.setExperience(celeste.getConfig().getInt("falling-stars-experience"));
                 lootDropped = true;
             }
             if (y % (step * 5) == 0) {
