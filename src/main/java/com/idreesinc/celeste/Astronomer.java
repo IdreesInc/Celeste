@@ -1,9 +1,9 @@
 package com.idreesinc.celeste;
 
-import org.bukkit.entity.Player;
+import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Astronomer extends BukkitRunnable {
@@ -18,32 +18,35 @@ public class Astronomer extends BukkitRunnable {
         if (celeste.getServer().getOnlinePlayers().size() == 0) {
             return;
         }
-        if (new Random().nextDouble() <= celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d) {
-            ArrayList<Player> players = getViablePlayers();
-            if (players.size() == 0) {
-                return;
+
+        List<World> worlds = celeste.getServer().getWorlds();
+        for (World world : worlds) {
+            if (!world.getEnvironment().equals(World.Environment.NORMAL)) {
+                continue;
             }
-            CelestialSphere.createShootingStar(players.get(new Random().nextInt(players.size())));
-            System.out.println("Spawning shooting star");
-        }
-        if (new Random().nextDouble() <=  celeste.getConfig().getDouble("falling-stars-per-minute") / 60d) {
-            ArrayList<Player> players = getViablePlayers();
-            if (players.size() == 0) {
-                return;
+            if (world.getPlayers().size() == 0) {
+                continue;
             }
-            CelestialSphere.createFallingStar(celeste, players.get(new Random().nextInt(players.size())));
-            System.out.println("Spawning falling star");
+            if (!(world.getTime() >= 13000 && world.getTime() <= 23000)) {
+                continue;
+            }
+
+            double shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d;
+            double fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 60d;
+
+            if (celeste.getConfig().getBoolean("new-moon-meteor-shower") && (world.getFullTime() / 24000) % 8 == 4) {
+                shootingStarChance *= celeste.getConfig().getDouble("meteor-shower-shooting-stars-modifier");
+                fallingStarChance *= celeste.getConfig().getDouble("meteor-shower-falling-stars-modifier");
+            }
+
+            if (new Random().nextDouble() <= shootingStarChance) {
+                CelestialSphere.createShootingStar(world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
+//                System.out.println("Spawning shooting star");
+            }
+            if (new Random().nextDouble() <=  fallingStarChance) {
+                CelestialSphere.createFallingStar(celeste, world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
+//                System.out.println("Spawning falling star");
+            }
         }
     }
-
-    private ArrayList<Player> getViablePlayers() {
-        ArrayList<Player> players = new ArrayList<Player>();
-        for (Player player : celeste.getServer().getOnlinePlayers()) {
-            if (player.getWorld().getTime() >= 13000 && player.getWorld().getTime() <= 23000) { // Nighttime
-                players.add(player);
-            }
-        }
-        return players;
-    }
-
 }

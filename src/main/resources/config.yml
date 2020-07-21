@@ -4,8 +4,10 @@ falling-stars-radius: 75
 falling-stars-spark-time: 200
 falling-stars-experience: 100
 falling-stars-loot:
-  nether_star: 0.1
+  nether_star: 0.05
   diamond: 60
   emerald: 20
-  fire_charge: 10
-  blaze_powder: 10
+  fire_charge: 20
+new-moon-meteor-shower: true
+meteor-shower-shooting-stars-modifier: 3
+meteor-shower-falling-stars-modifier: 1.33

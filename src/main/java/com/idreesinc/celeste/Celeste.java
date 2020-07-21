@@ -1,6 +1,5 @@
 package com.idreesinc.celeste;
 
-import com.idreesinc.celeste.commands.CommandIdrees;
 import com.idreesinc.celeste.commands.CommandShootingStar;
 import com.idreesinc.celeste.utilities.WeightedRandomBag;
 import org.bukkit.Material;
@@ -14,7 +13,6 @@ public class Celeste extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.getCommand("idrees").setExecutor(new CommandIdrees());
         this.getCommand("star").setExecutor(new CommandShootingStar(this));
         ConfigurationSection loot;
         if (this.getConfig().isSet("falling-stars-loot")) {

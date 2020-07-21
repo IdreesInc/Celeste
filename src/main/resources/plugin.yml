@@ -5,11 +5,7 @@ author: Idrees
 main: com.idreesinc.celeste.Celeste
 
 commands:
-  idrees:
-    description: Provides love and support
-    usage: /<command>
-    permission: celeste.idrees
   star:
-    description: Creates a shooting star
+    description: Creates a falling star near the player that summons it
     usage: /<command>
     permission: celeste.star
