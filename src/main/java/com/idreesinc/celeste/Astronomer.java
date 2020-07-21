@@ -19,19 +19,31 @@ public class Astronomer extends BukkitRunnable {
             return;
         }
         if (new Random().nextDouble() <= celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d) {
-            CelestialSphere.createShootingStar(getRandomPlayer());
+            ArrayList<Player> players = getViablePlayers();
+            if (players.size() == 0) {
+                return;
+            }
+            CelestialSphere.createShootingStar(players.get(new Random().nextInt(players.size())));
             System.out.println("Spawning shooting star");
         }
         if (new Random().nextDouble() <=  celeste.getConfig().getDouble("falling-stars-per-minute") / 60d) {
-            CelestialSphere.createFallingStar(celeste, getRandomPlayer());
+            ArrayList<Player> players = getViablePlayers();
+            if (players.size() == 0) {
+                return;
+            }
+            CelestialSphere.createFallingStar(celeste, players.get(new Random().nextInt(players.size())));
             System.out.println("Spawning falling star");
         }
     }
 
-    private Player getRandomPlayer() {
-        ArrayList<Player> players = new ArrayList<Player>(celeste.getServer().getOnlinePlayers());
-        int randomPlayer = new Random().nextInt(players.size());
-        return players.get(randomPlayer);
+    private ArrayList<Player> getViablePlayers() {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for (Player player : celeste.getServer().getOnlinePlayers()) {
+            if (player.getWorld().getTime() >= 13000 && player.getWorld().getTime() <= 23000) { // Nighttime
+                players.add(player);
+            }
+        }
+        return players;
     }
 
 }
