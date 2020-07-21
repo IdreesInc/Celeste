@@ -2,7 +2,6 @@ package com.idreesinc.celeste;
 
 import com.idreesinc.celeste.commands.CommandIdrees;
 import com.idreesinc.celeste.commands.CommandShootingStar;
-import com.idreesinc.celeste.commands.ShootingStarTask;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -11,9 +10,9 @@ public class Celeste extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Hello, world!");
         this.getCommand("idrees").setExecutor(new CommandIdrees());
-        this.getCommand("star").setExecutor(new CommandShootingStar());
-        BukkitRunnable shootingStarTask = new ShootingStarTask(this);
-        shootingStarTask.runTaskTimer(this, 0, 5);
+        this.getCommand("star").setExecutor(new CommandShootingStar(this));
+        BukkitRunnable shootingStarTask = new StargazingTask(this);
+        shootingStarTask.runTaskTimer(this, 0, 20);
     }
 
     @Override

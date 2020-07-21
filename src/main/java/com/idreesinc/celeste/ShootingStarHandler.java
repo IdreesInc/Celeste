@@ -3,6 +3,8 @@ package com.idreesinc.celeste;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -13,7 +15,7 @@ public class ShootingStarHandler {
     }
 
     public static void createShootingStar(Location location) {
-        double radius = 50 + new Random().nextDouble() * 30;
+        double radius = 60 + new Random().nextDouble() * 30;
         Vector locationMod = new Vector(new Random().nextDouble() * 2 - 1, new Random().nextDouble(), new Random().nextDouble() * 2 - 1);
         locationMod.normalize();
         locationMod.multiply(radius);
@@ -21,6 +23,22 @@ public class ShootingStarHandler {
                 Math.max(100, locationMod.getY() + location.getY() + 10)), locationMod.getZ() + location.getZ());
         Vector direction = new Vector(new Random().nextDouble() * 2 - 1, new Random().nextDouble() * -1 * Math.cos(locationMod.getY() / radius * (Math.PI / 2)), new Random().nextDouble() * 2 - 1);
         direction.normalize();
-        location.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, starLocation, 0, direction.getX(), direction.getY(), direction.getZ(), new Random().nextDouble() * 1.5 + 0.5, null, true);
+        location.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, starLocation, 0, direction.getX(),
+                direction.getY(), direction.getZ(), new Random().nextDouble() * 1.5 + 0.75, null, true);
+    }
+
+    public static void createFallingStar(Plugin plugin, Player player) {
+        createFallingStar(plugin, player.getLocation());
+    }
+
+    public static void createFallingStar(Plugin plugin, final Location location) {
+        double fallingStarRadius = 100;
+        double w = fallingStarRadius * Math.sqrt(new Random().nextDouble());
+        double t = 2d * Math.PI * new Random().nextDouble();
+        double x = w * Math.cos(t);
+        double z = w * Math.sin(t);
+        Location target = new Location(location.getWorld(), location.getX() + x, location.getY(), location.getZ() + z);
+        BukkitRunnable fallingStarTask = new FallingStarTask(target);
+        fallingStarTask.runTaskTimer(plugin, 0, 1);
     }
 }

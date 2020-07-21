@@ -12,7 +12,7 @@ public class CommandIdrees implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            ItemStack apple = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1);
+            ItemStack apple = new ItemStack(Material.APPLE, 1);
             player.getInventory().addItem(apple);
         }
         return true;
