@@ -4,6 +4,12 @@ Celeste is a simple plugin that adds shooting stars to your Minecraft server. In
 - Add shooting stars to the night sky, with configurable frequency
 - Find rare falling stars that deliver precious materials in a sparkling package
 - Watch meteor showers that occur every new moon, increasing the rate of shooting and falling stars
+## In-Depth Functionality
+Shooting stars and falling stars spawn on on any world that meets the following conditions:
+- Must have players in the world currently
+- Must be nighttime (between 13000 and 23000 in game time)
+- Must be clear weather (no rain or snow)
+- Will not spawn in the nether or end
 ## Configuration
 Installation is as simple as copying the newest build jar to your plugins folder. **A configuration file is not added by default**, but can be easily created by making a "Celeste" directory in your plugins folder and creating a "config.yml" within that directory. It is not necessary (nor recommended) to copy everything from the default config shown below, instead copy only the lines you wish to change.
 ### Defaults
