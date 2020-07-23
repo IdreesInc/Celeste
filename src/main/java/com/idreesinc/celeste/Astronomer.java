@@ -30,20 +30,25 @@ public class Astronomer extends BukkitRunnable {
             if (!(world.getTime() >= 13000 && world.getTime() <= 23000)) {
                 continue;
             }
+            if (world.hasStorm()) {
+                continue;
+            }
 
-            double shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d;
-            double fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 60d;
-
+            double shootingStarChance;
+            double fallingStarChance;
             if (celeste.getConfig().getBoolean("new-moon-meteor-shower") && (world.getFullTime() / 24000) % 8 == 4) {
-                shootingStarChance *= celeste.getConfig().getDouble("meteor-shower-shooting-stars-modifier");
-                fallingStarChance *= celeste.getConfig().getDouble("meteor-shower-falling-stars-modifier");
+                shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute-during-meteor-showers") / 60d;
+                fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute-during-meteor-showers") / 60d;
+            } else {
+                shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d;
+                fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 60d;
             }
 
             if (new Random().nextDouble() <= shootingStarChance) {
                 CelestialSphere.createShootingStar(world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
 //                System.out.println("Spawning shooting star");
             }
-            if (new Random().nextDouble() <=  fallingStarChance) {
+            if (celeste.getConfig().getBoolean("falling-stars-enabled") && new Random().nextDouble() <=  fallingStarChance) {
                 CelestialSphere.createFallingStar(celeste, world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
 //                System.out.println("Spawning falling star");
             }
