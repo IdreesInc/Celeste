@@ -2,6 +2,7 @@ package com.idreesinc.celeste;
 
 import com.idreesinc.celeste.commands.CommandShootingStar;
 import com.idreesinc.celeste.utilities.Metrics;
+import com.idreesinc.celeste.utilities.UpdateChecker;
 import com.idreesinc.celeste.utilities.WeightedRandomBag;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -39,5 +40,13 @@ public class Celeste extends JavaPlugin {
         }
         BukkitRunnable stargazingTask = new Astronomer(this);
         stargazingTask.runTaskTimer(this, 0, 10);
+
+        new UpdateChecker(this, 81862).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+//                this.getLogger().info("Celeste is up to date!");
+            } else {
+                this.getLogger().info("There is a new update available for Celeste!");
+            }
+        });
     }
 }
