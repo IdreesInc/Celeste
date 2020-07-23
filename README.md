@@ -14,6 +14,8 @@ Shooting stars and falling stars spawn on on any world that meets the following 
 - Will not spawn in the nether or end
 ## Configuration
 Installation is as simple as copying the newest build jar to your plugins folder. **A configuration file is not added by default**, but can be easily created by making a "Celeste" directory in your plugins folder and creating a "config.yml" within that directory. It is not necessary (nor recommended) to copy everything from the default config shown below, instead copy only the lines you wish to change.
+
+![Falling star](/images/falling_star_close.gif)
 ### Defaults
 ``` yaml
 # The number of shooting stars to create per minute for each world
