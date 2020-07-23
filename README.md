@@ -48,4 +48,6 @@ Falling stars drop loot wherever they fall, and spark for 10 seconds (200 ticks)
 
 To define your own loot tables, add the `falling-stars-loot` attribute to your config (remember, you will have to create the plugin config if you haven't already done so) and list each item you want as well as the probability for it to appear. **The names of the items must be from the list provided [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html)**. Remember to only add materials available in your server version.
 ## Commands
-Just one! **/star** creates a falling star near the person who summons it, which can be useful for testing purposes.
+**/shootingstar** summons a shooting star in the vicinity of the player
+**/fallingstar** summons a falling star at the exact location of the player
+
