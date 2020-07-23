@@ -1,5 +1,6 @@
 package com.idreesinc.celeste;
 
+import com.idreesinc.celeste.commands.CommandFallingStar;
 import com.idreesinc.celeste.commands.CommandShootingStar;
 import com.idreesinc.celeste.utilities.Metrics;
 import com.idreesinc.celeste.utilities.UpdateChecker;
@@ -15,9 +16,10 @@ public class Celeste extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Metrics metrics = new Metrics(this, 8292);
+        Metrics metrics = new Metrics(this, 81862);
 
-        this.getCommand("star").setExecutor(new CommandShootingStar(this));
+        this.getCommand("shootingstar").setExecutor(new CommandShootingStar(this));
+        this.getCommand("fallingstar").setExecutor(new CommandFallingStar(this));
         ConfigurationSection loot;
         if (this.getConfig().isSet("falling-stars-loot")) {
             // User has added their own loot table, do not combine with defaults
@@ -42,6 +44,7 @@ public class Celeste extends JavaPlugin {
         stargazingTask.runTaskTimer(this, 0, 10);
 
         new UpdateChecker(this, 81862).getVersion(version -> {
+//            System.out.println(version);
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
 //                this.getLogger().info("Celeste is up to date!");
             } else {
