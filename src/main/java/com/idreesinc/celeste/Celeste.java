@@ -1,6 +1,7 @@
 package com.idreesinc.celeste;
 
 import com.idreesinc.celeste.commands.CommandShootingStar;
+import com.idreesinc.celeste.utilities.Metrics;
 import com.idreesinc.celeste.utilities.WeightedRandomBag;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,6 +14,8 @@ public class Celeste extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        Metrics metrics = new Metrics(this, 8292);
+
         this.getCommand("star").setExecutor(new CommandShootingStar(this));
         ConfigurationSection loot;
         if (this.getConfig().isSet("falling-stars-loot")) {
@@ -36,10 +39,5 @@ public class Celeste extends JavaPlugin {
         }
         BukkitRunnable stargazingTask = new Astronomer(this);
         stargazingTask.runTaskTimer(this, 0, 10);
-    }
-
-    @Override
-    public void onDisable() {
-        getLogger().info("onDisable is called!");
     }
 }
