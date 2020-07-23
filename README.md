@@ -6,14 +6,23 @@ Celeste is a simple plugin that adds shooting stars to your Minecraft server. In
 - Watch meteor showers that occur every new moon, increasing the rate of shooting and falling stars
 
 ![Shooting stars and a falling star in the corner](/images/meteor_shower.gif)
+
+### Shooting stars
+Shooting stars occur once every 10 seconds by default (6 times a minute), but due to how large the area around a player is, you would usually only see one every few minutes unless you were stargazing. They have no functional purpose and are only there to sparkle and look pretty.
+To more accurately emulate real world meteors, these virtual shooting stars vary in speed, length, and can even break up into multiple parts while burning up!
+
+![Falling star](/images/falling_star_close.gif)
+
+### Falling stars
+Inspired by the star fragments from The Legend of Zelda: Breath of the Wild, these rare stars are fall from the sky only once or twice a night! They are marked by a streak of light and resonating sound as they fall towards the earth, and once they land the stars spark and sizzle for 10 seconds by default to help players find them. They can be easy to miss, with players only knowing one has fallen by the distinctly resonating sound they make on impact. But if a player is lucky enough to find one, they may receive a rare treasure as well as some experience! This loot is completely customizable, and the documentation for that can be found further below.
+
 ## In-Depth Functionality
-Shooting stars and falling stars spawn on on any world that meets the following conditions:
+Shooting stars and falling stars spawn on a per-world basis. This means that the number of players in a world does not affect the spawning rate. When either type of star is given a chance to spawn, the plugin will find a random player within that world and center the spawn in a large radius around said player, in order to avoid sending stars to unloaded chunks where they would never be found.
+Additionally, the worlds that shooting and falling stars can spawn in must meet the following conditions:
 - Must have players in the world currently
 - Must be nighttime (between 13000 and 23000 in game time)
 - Must be clear weather (no rain or snow)
 - Will not spawn in the nether or end
-
-![Falling star](/images/falling_star_close.gif)
 
 ## Configuration
 Installation is as simple as copying the newest build jar to your plugins folder. **A configuration file is not added by default**, but can be easily created by making a "Celeste" directory in your plugins folder and creating a "config.yml" within that directory. It is not necessary (nor recommended) to copy everything from the default config shown below, instead copy only the lines you wish to change.
