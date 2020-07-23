@@ -19,11 +19,11 @@ Shooting stars and falling stars spawn on on any world that meets the following 
 Installation is as simple as copying the newest build jar to your plugins folder. **A configuration file is not added by default**, but can be easily created by making a "Celeste" directory in your plugins folder and creating a "config.yml" within that directory. It is not necessary (nor recommended) to copy everything from the default config shown below, instead copy only the lines you wish to change.
 ### Defaults
 ``` yaml
-# The number of shooting stars to create per minute for each world
+# The average number of shooting stars to create per minute for each world
 shooting-stars-per-minute: 6
 # Whether to create falling stars or not
 falling-stars-enabled: true
-# The number of falling stars to create per minute for each world
+# The average number of falling stars to create per minute for each world
 falling-stars-per-minute: 0.2
 # The maximum distance around a player within which a falling star may spawn
 falling-stars-radius: 75
