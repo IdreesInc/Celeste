@@ -28,7 +28,6 @@ falling-stars-spark-time: 200
 falling-stars-experience: 100
 # The possible loot from a falling star, and the weighted chance of each item appearing
 falling-stars-loot:
-  nether_star: 0.05
   diamond: 60
   emerald: 20
   fire_charge: 20
@@ -40,7 +39,7 @@ shooting-stars-per-minute-during-meteor-showers: 15
 falling-stars-per-minute-during-meteor-showers: 0.3
 ```
 ### Falling Star Loot
-Falling stars drop loot wherever they fall, and spark for 10 seconds (200 ticks) by default to show their location. The loot they drop is randomly selected from the loot table in the config, with each material being given a weight. For instance, in the default config, there is a 60% chance for a diamond, 20% of an emerald, 20% chance of a fire_charge, and a 0.05% chance of a nether star (1 in 2000). Given the default probability for falling stars (0.2 a minute or about 2 a night), that means it would take about 1000 in game days to find a nether star, which is to say that it is basically an easter egg at that point. Experience also drops from falling stars, 100 points (not levels) by default.
+Falling stars drop loot wherever they fall, and spark for 10 seconds (200 ticks) by default to show their location. The loot they drop is randomly selected from the loot table in the config, with each material being given a weight. For instance, in the default config, there is a 60% chance for a diamond, 20% of an emerald, and 20% chance of a fire_charge. Experience also drops from falling stars, 100 points (not levels) by default.
 
 To define your own loot tables, add the `falling-stars-loot` attribute to your config (remember, you will have to create the plugin config if you haven't already done so) and list each item you want as well as the probability for it to appear. **The names of the items must be from the list provided [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html)**. Remember to only add materials available in your server version.
 ## Commands
