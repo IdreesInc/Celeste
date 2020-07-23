@@ -35,7 +35,7 @@ public class Celeste extends JavaPlugin {
             System.err.println("Error: Loot table for falling stars can't be found");
         }
         BukkitRunnable stargazingTask = new Astronomer(this);
-        stargazingTask.runTaskTimer(this, 0, 20);
+        stargazingTask.runTaskTimer(this, 0, 10);
     }
 
     @Override

@@ -37,11 +37,13 @@ public class Astronomer extends BukkitRunnable {
             double shootingStarChance;
             double fallingStarChance;
             if (celeste.getConfig().getBoolean("new-moon-meteor-shower") && (world.getFullTime() / 24000) % 8 == 4) {
-                shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute-during-meteor-showers") / 60d;
-                fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute-during-meteor-showers") / 60d;
+                shootingStarChance =
+                        celeste.getConfig().getDouble("shooting-stars-per-minute-during-meteor-showers") / 120d;
+                fallingStarChance =
+                        celeste.getConfig().getDouble("falling-stars-per-minute-during-meteor-showers") / 120d;
             } else {
-                shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute") / 60d;
-                fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 60d;
+                shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute") / 120d;
+                fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 120d;
             }
 
             if (new Random().nextDouble() <= shootingStarChance) {

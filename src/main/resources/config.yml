@@ -5,7 +5,6 @@ falling-stars-radius: 75
 falling-stars-spark-time: 200
 falling-stars-experience: 100
 falling-stars-loot:
-  nether_star: 0.05
   diamond: 60
   emerald: 20
   fire_charge: 20

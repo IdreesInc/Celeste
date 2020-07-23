@@ -20,7 +20,7 @@ public class CommandShootingStar implements CommandExecutor {
             Player player = (Player) sender;
             player.sendMessage("Make a wish!");
             CelestialSphere.createShootingStar(player);
-            CelestialSphere.createFallingStar(celeste, player);
+            CelestialSphere.createFallingStar(celeste, player, false);
             return true;
         }
         return false;
