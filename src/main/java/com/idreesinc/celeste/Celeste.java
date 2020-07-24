@@ -17,7 +17,7 @@ public class Celeste extends JavaPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        Metrics metrics = new Metrics(this, 81862);
+        Metrics metrics = new Metrics(this, 8292);
 
         this.getCommand("shootingstar").setExecutor(new CommandShootingStar(this));
         this.getCommand("fallingstar").setExecutor(new CommandFallingStar(this));
