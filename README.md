@@ -82,7 +82,7 @@ falling-stars-loot:
 *Permission: celeste.shootingstar*
 
 **/fallingstar [player]** summons a falling star directly above the player. If no player is given, spawns one above the summoner.  
-*Permission: celeste.shootingstar*
+*Permission: celeste.fallingstar*
 
 **/celeste reload** reloads the config file, recalculates the falling star loot, and checks for updates (if enabled)  
 *Permission: celeste.reload*
