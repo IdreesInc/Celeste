@@ -16,6 +16,7 @@ public class Celeste extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.saveDefaultConfig();
         Metrics metrics = new Metrics(this, 81862);
 
         this.getCommand("shootingstar").setExecutor(new CommandShootingStar(this));
@@ -44,11 +45,10 @@ public class Celeste extends JavaPlugin {
         stargazingTask.runTaskTimer(this, 0, 10);
 
         new UpdateChecker(this, 81862).getVersion(version -> {
-//            System.out.println(version);
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-//                this.getLogger().info("Celeste is up to date!");
+                this.getLogger().info("Celeste is up to date!");
             } else {
-                this.getLogger().info("There is a new update available for Celeste!");
+                this.getLogger().info("There is an update available for Celeste (" + this.getDescription().getVersion() + " -> " + version + ")");
             }
         });
     }

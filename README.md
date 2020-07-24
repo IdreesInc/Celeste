@@ -25,7 +25,7 @@ Additionally, the worlds that shooting and falling stars can spawn in must meet 
 - Will not spawn in the nether or end
 
 ## Configuration
-Installation is as simple as copying the newest build jar to your plugins folder. **A configuration file is not added by default**, but can be easily created by making a "Celeste" directory in your plugins folder and creating a "config.yml" within that directory. It is not necessary (nor recommended) to copy everything from the default config shown below, instead copy only the lines you wish to change.
+Installation is as simple as copying the newest build jar to your plugins folder. A configuration file is created by default, but if the file was created previously it may not include default values that were added in later updates. These values can be added easily by just copying and pasting the particular lines from the defaults below.
 ### Defaults
 ``` yaml
 # The average number of shooting stars to create per minute for each world
@@ -51,6 +51,10 @@ new-moon-meteor-shower: true
 shooting-stars-per-minute-during-meteor-showers: 15
 # The number of falling stars to create per minute during meteor showers
 falling-stars-per-minute-during-meteor-showers: 0.3
+# The message to send in response to summoning a shooting star
+shooting-stars-summon-text: "Make a wish!"
+# The message to send in response to summoning a falling star
+falling-stars-summon-text: "Make a wish!"
 ```
 ### Falling Star Loot
 Falling stars drop loot wherever they fall, and spark for 10 seconds (200 ticks) by default to show their location. The loot they drop is randomly selected from the loot table in the config, with each material being given a weight. For instance, in the default config, there is a 60% chance for a diamond, 20% of an emerald, and 20% chance of a fire_charge. Experience also drops from falling stars, 100 points (not levels) by default.
@@ -68,7 +72,7 @@ falling-stars-loot:
  ```
 
 ## Commands
-**/shootingstar**  summons a shooting star in the sky around the player, however because the area a shooting star can spawn is quite large, it is easy to miss just a single one. I am currently working on making it appear exactly above the player for easy testing
+**/shootingstar [player]**  summons a shooting star in the sky directly above the player. If no player is given, spawns one above the summoner.
 
-**/fallingstar** summons a falling star at the exact location of the player
+**/fallingstar [player]** summons a falling star directly above the player. If no player is given, spawns one above the summoner.
 

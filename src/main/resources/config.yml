@@ -11,3 +11,5 @@ falling-stars-loot:
 new-moon-meteor-shower: true
 shooting-stars-per-minute-during-meteor-showers: 15
 falling-stars-per-minute-during-meteor-showers: 0.3
+shooting-stars-summon-text: "Make a wish!"
+falling-stars-summon-text: "Make a wish!"
