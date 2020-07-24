@@ -1,10 +1,14 @@
 name: Celeste
-version: 1.4
+version: 1.5
 api-version: 1.14
 author: Idrees
 main: com.idreesinc.celeste.Celeste
 
 commands:
+  celeste:
+    description: Reloads the plugin configuration
+    usage: /<command> <reload>
+    permission: celeste.reload
   shootingstar:
     description: Creates a shooting star near the player that summons it, or optionally near another player
     usage: /<command> [player]

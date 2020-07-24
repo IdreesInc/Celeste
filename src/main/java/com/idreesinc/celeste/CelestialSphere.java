@@ -6,23 +6,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class CelestialSphere {
 
-    public static void createShootingStar(Player player) {
-        createShootingStar(player, true);
+    public static void createShootingStar(Celeste celeste, Player player) {
+        createShootingStar(celeste, player, true);
     }
 
-    public static void createShootingStar(Player player, boolean approximate) {
-        createShootingStar(player.getLocation(), approximate);
+    public static void createShootingStar(Celeste celeste, Player player, boolean approximate) {
+        createShootingStar(celeste, player.getLocation(), approximate);
     }
 
-    public static void createShootingStar(Location location) {
-        createShootingStar(location, true);
+    public static void createShootingStar(Celeste celeste, Location location) {
+        createShootingStar(celeste, location, true);
     }
 
-    public static void createShootingStar(Location location, boolean approximate) {
+    public static void createShootingStar(Celeste celeste, Location location, boolean approximate) {
         Location starLocation;
         double w = 100 * Math.sqrt(new Random().nextDouble());
         double t = 2d * Math.PI * new Random().nextDouble();
@@ -42,6 +44,9 @@ public class CelestialSphere {
         if (new Random().nextDouble() >= 0.5) {
             location.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, starLocation, 0, direction.getX(),
                     direction.getY(), direction.getZ(), speed, null, true);
+        }
+        if (celeste.getConfig().getBoolean("debug")) {
+            celeste.getLogger().info("Shooting star at " + stringifyLocation(starLocation));
         }
     }
 
@@ -69,5 +74,14 @@ public class CelestialSphere {
         }
         BukkitRunnable fallingStarTask = new FallingStar(celeste, target);
         fallingStarTask.runTaskTimer(celeste, 0, 1);
+        if (celeste.getConfig().getBoolean("debug")) {
+            celeste.getLogger().info("Falling star at " + stringifyLocation(target));
+        }
+    }
+
+    private static String stringifyLocation(Location location) {
+        DecimalFormat format = new DecimalFormat("##.00");
+        format.setRoundingMode(RoundingMode.HALF_UP);
+        return "x: " + format.format(location.getX()) + " y: " + format.format(location.getY()) + " z: " + format.format(location.getZ());
     }
 }

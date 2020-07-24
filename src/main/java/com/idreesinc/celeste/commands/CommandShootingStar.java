@@ -22,11 +22,11 @@ public class CommandShootingStar implements CommandExecutor {
                 sender.sendMessage("\u00a7cError: Player not found.");
                 return true;
             }
-            CelestialSphere.createShootingStar(Bukkit.getPlayer(args[0]), false);
+            CelestialSphere.createShootingStar(celeste, Bukkit.getPlayer(args[0]), false);
         } else {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                CelestialSphere.createShootingStar(player, false);
+                CelestialSphere.createShootingStar(celeste, player, false);
             } else {
                 return false;
             }

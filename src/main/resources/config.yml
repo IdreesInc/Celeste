@@ -1,5 +1,7 @@
-shooting-stars-per-minute: 6
+check-for-updates: true
+shooting-stars-enabled: true
 falling-stars-enabled: true
+shooting-stars-per-minute: 6
 falling-stars-per-minute: 0.2
 falling-stars-radius: 75
 falling-stars-spark-time: 200
@@ -13,3 +15,4 @@ shooting-stars-per-minute-during-meteor-showers: 15
 falling-stars-per-minute-during-meteor-showers: 0.3
 shooting-stars-summon-text: "Make a wish!"
 falling-stars-summon-text: "Make a wish!"
+debug: false

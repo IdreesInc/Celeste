@@ -46,13 +46,11 @@ public class Astronomer extends BukkitRunnable {
                 fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 120d;
             }
 
-            if (new Random().nextDouble() <= shootingStarChance) {
-                CelestialSphere.createShootingStar(world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
-//                System.out.println("Spawning shooting star");
+            if (celeste.getConfig().getBoolean("shooting-stars-enabled") && new Random().nextDouble() <= shootingStarChance) {
+                CelestialSphere.createShootingStar(celeste, world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
             }
             if (celeste.getConfig().getBoolean("falling-stars-enabled") && new Random().nextDouble() <=  fallingStarChance) {
                 CelestialSphere.createFallingStar(celeste, world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
-//                System.out.println("Spawning falling star");
             }
         }
     }
