@@ -4,6 +4,8 @@ falling-stars-enabled: true
 shooting-stars-per-minute: 6
 falling-stars-per-minute: 0.2
 falling-stars-radius: 75
+falling-stars-sound-enabled: true
+falling-stars-volume: 6
 falling-stars-spark-time: 200
 falling-stars-experience: 100
 falling-stars-loot:

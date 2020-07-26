@@ -40,6 +40,10 @@ shooting-stars-per-minute: 6
 falling-stars-per-minute: 0.2
 # The maximum distance around a player within which a falling star may spawn
 falling-stars-radius: 75
+# Whether falling stars should play a sound when falling
+falling-stars-sound-enabled: true
+# The volume at which falling star sounds should play (note that this maxes out at 1.0, with anything more increasing range)
+falling-stars-volume: 6
 # How many ticks a falling star should spark for once it has landed (20 ticks is a second)
 falling-stars-spark-time: 200
 # How many experience points (not levels) to provide from catching a falling star
@@ -86,3 +90,6 @@ falling-stars-loot:
 
 **/celeste reload** reloads the config file, recalculates the falling star loot, and checks for updates (if enabled)  
 *Permission: celeste.reload*
+
+**/celeste info** displays if shooting stars, falling stars, and meteor showers are enabled  
+*Permission: celeste.info*

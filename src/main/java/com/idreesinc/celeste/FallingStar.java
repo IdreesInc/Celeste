@@ -45,8 +45,8 @@ public class FallingStar extends BukkitRunnable {
                     0,  0, new Random().nextDouble(), 0,
                     0.2, null, true);
         }
-        if (!soundPlayed && y <= dropLoc.getY() + 75) {
-            location.getWorld().playSound(dropLoc, Sound.BLOCK_BELL_RESONATE, 15, 0.5f);
+        if (celeste.getConfig().getBoolean("falling-stars-sound-enabled") && !soundPlayed && y <= dropLoc.getY() + 75) {
+            location.getWorld().playSound(dropLoc, Sound.BLOCK_BELL_RESONATE, (float) celeste.getConfig().getDouble("falling-stars-volume"), 0.5f);
             soundPlayed = true;
         }
         if (y <= dropLoc.getY()) {

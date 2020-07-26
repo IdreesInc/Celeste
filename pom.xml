@@ -6,7 +6,7 @@
 
     <groupId>com.idreesinc</groupId>
     <artifactId>Celeste</artifactId>
-    <version>1.5</version>
+    <version>1.55</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
