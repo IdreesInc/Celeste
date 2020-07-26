@@ -42,7 +42,8 @@ falling-stars-per-minute: 0.2
 falling-stars-radius: 75
 # Whether falling stars should play a sound when falling
 falling-stars-sound-enabled: true
-# The volume at which falling star sounds should play (note that this maxes out at 1.0, with anything more increasing range)
+# The volume at which falling star sounds should play
+# Note that this maxes out at 1.0, with anything more increasing range by a factor of ~15 blocks per step
 falling-stars-volume: 6
 # How many ticks a falling star should spark for once it has landed (20 ticks is a second)
 falling-stars-spark-time: 200
