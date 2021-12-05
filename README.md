@@ -41,6 +41,10 @@ shooting-stars-enabled: true
 falling-stars-enabled: true
 # The average number of shooting stars to create per minute for each world
 shooting-stars-per-minute: 6
+# The minimum y level where a shooting star can spawn
+shooting-stars-min-height: 130
+# The "maximum" y level where a shooting star can spawn (note that shooting stars will always spawn at least 50 meters above a player which can overrule this limit)
+shooting-stars-max-height: 160
 # The average number of falling stars to create per minute for each world
 falling-stars-per-minute: 0.2
 # The maximum distance around a player within which a falling star may spawn

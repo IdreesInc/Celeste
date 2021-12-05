@@ -44,9 +44,7 @@ public class Celeste extends JavaPlugin {
                 try {
                     double current = Double.parseDouble(this.getDescription().getVersion());
                     double api = Double.parseDouble(version);
-                    if (current >= api) {
-//                    this.getLogger().info("Celeste is up to date!");
-                    } else {
+                    if (current < api) {
                         this.getLogger().info("There is an update available for Celeste (" + current + " -> " + api + ")");
                     }
                 } catch (NumberFormatException e) {
@@ -70,7 +68,7 @@ public class Celeste extends JavaPlugin {
                 try {
                     Material.valueOf(key.toUpperCase());
                     fallingStarDrops.addEntry(key.toUpperCase(), loot.getDouble(key));
-//                    System.out.println(key.toUpperCase() + " " + loot.getDouble(key));
+                    // System.out.println(key.toUpperCase() + " " + loot.getDouble(key));
                 } catch (IllegalArgumentException e) {
                     System.err.println("Error: Item with name " + key.toUpperCase() + " does not exist, skipping");
                 }

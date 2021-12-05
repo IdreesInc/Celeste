@@ -29,7 +29,8 @@ public class CelestialSphere {
         double w = 100 * Math.sqrt(new Random().nextDouble());
         double t = 2d * Math.PI * new Random().nextDouble();
         double x = w * Math.cos(t);
-        double y = Math.max(new Random().nextDouble() * 50 + 100, location.getY() + 50);
+        double range = Math.max(0, celeste.getConfig().getInt("shooting-stars-max-height") - celeste.getConfig().getInt("shooting-stars-min-height"));
+        double y = Math.max(new Random().nextDouble() * range + celeste.getConfig().getInt("shooting-stars-min-height"), location.getY() + 50);
         double z = w * Math.sin(t);
         if (approximate) {
             starLocation = new Location(location.getWorld(), location.getX() + x, y, location.getZ() + z);

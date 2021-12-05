@@ -26,12 +26,12 @@ public class WeightedRandomBag<T extends Object> {
 
     public T getRandom() {
         double r = rand.nextDouble() * accumulatedWeight;
-
         for (Entry entry: entries) {
             if (entry.accumulatedWeight >= r) {
                 return entry.object;
             }
         }
-        return null; //should only happen when there are no entries
+        // Should only happen when there are no entries
+        return null;
     }
 }
