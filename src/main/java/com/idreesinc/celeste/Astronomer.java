@@ -3,6 +3,8 @@ package com.idreesinc.celeste;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.idreesinc.celeste.utilities.WorldLootGenerator;
+
 import java.util.List;
 import java.util.Random;
 
@@ -18,40 +20,46 @@ public class Astronomer extends BukkitRunnable {
         if (celeste.getServer().getOnlinePlayers().size() == 0) {
             return;
         }
-
-        List<World> worlds = celeste.getServer().getWorlds();
-        for (World world : worlds) {
-            if (!world.getEnvironment().equals(World.Environment.NORMAL)) {
-                continue;
-            }
+        
+        for(String worldKey : celeste.worldLoot.worldLootConfigs.keySet()) {
+        	World world = celeste.getServer().getWorld(worldKey);
+        	if(world == null) {
+        		celeste.getLogger().warning("Invalid world: "+worldKey+" please double check config");
+        		continue;
+        	}
+        	WorldLootGenerator.WLConfiguration config = celeste.worldLoot.worldLootConfigs.get(worldKey);
+        	
             if (world.getPlayers().size() == 0) {
                 continue;
             }
-            if (!(world.getTime() >= 13000 && world.getTime() <= 23000)) {
+            if (!(world.getTime() >= config.starStartSpawnTime && world.getTime() <= config.starStopSpawnTime)) {
                 continue;
             }
             if (world.hasStorm()) {
                 continue;
             }
-
+            
             double shootingStarChance;
             double fallingStarChance;
-            if (celeste.getConfig().getBoolean("new-moon-meteor-shower") && (world.getFullTime() / 24000) % 8 == 4) {
+            if (config.newMoonMeteorShower && (world.getFullTime() / 24000) % 8 == 4) {
                 shootingStarChance =
-                        celeste.getConfig().getDouble("shooting-stars-per-minute-during-meteor-showers") / 120d;
+                		config.shootingStarsPerMinuteMeteorShower / 120d;
                 fallingStarChance =
-                        celeste.getConfig().getDouble("falling-stars-per-minute-during-meteor-showers") / 120d;
+                		config.fallingStarsPerMinuteMeteorShower / 120d;
             } else {
-                shootingStarChance = celeste.getConfig().getDouble("shooting-stars-per-minute") / 120d;
-                fallingStarChance = celeste.getConfig().getDouble("falling-stars-per-minute") / 120d;
+                shootingStarChance = config.shootingStarsPerMinute / 120d;
+                fallingStarChance = config.fallingStarsPerMinute / 120d;
             }
 
-            if (celeste.getConfig().getBoolean("shooting-stars-enabled") && new Random().nextDouble() <= shootingStarChance) {
+            if (config.hasShootingStars && new Random().nextDouble() <= shootingStarChance) {
                 CelestialSphere.createShootingStar(celeste, world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
             }
-            if (celeste.getConfig().getBoolean("falling-stars-enabled") && new Random().nextDouble() <=  fallingStarChance) {
+            if (config.hasFallingingStars && new Random().nextDouble() <=  fallingStarChance) {
                 CelestialSphere.createFallingStar(celeste, world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));
             }
+        	
         }
+
+
     }
 }
