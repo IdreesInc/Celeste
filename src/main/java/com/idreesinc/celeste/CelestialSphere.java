@@ -1,12 +1,11 @@
 package com.idreesinc.celeste;
 
+import com.idreesinc.celeste.config.CelesteConfig;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
-import com.idreesinc.celeste.utilities.WorldLootGenerator;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -28,7 +27,7 @@ public class CelestialSphere {
 
     public static void createShootingStar(Celeste celeste, Location location, boolean approximate) {
         Location starLocation;
-        WorldLootGenerator.WLConfiguration config = celeste.worldLoot.worldLootConfigs.get(location.getWorld().getName());
+        CelesteConfig config = celeste.configManager.getConfigForWorld(location.getWorld().getName());
         double w = 100 * Math.sqrt(new Random().nextDouble());
         double t = 2d * Math.PI * new Random().nextDouble();
         double x = w * Math.cos(t);
@@ -68,9 +67,9 @@ public class CelestialSphere {
 
     public static void createFallingStar(Celeste celeste, final Location location, boolean approximate) {
         Location target = location;
-        WorldLootGenerator.WLConfiguration config = celeste.worldLoot.worldLootConfigs.get(location.getWorld().getName());
+        CelesteConfig config = celeste.configManager.getConfigForWorld(location.getWorld().getName());
         if (approximate) {
-            double fallingStarRadius = config.fallingStarRadius;
+            double fallingStarRadius = config.fallingStarsRadius;
             double w = fallingStarRadius * Math.sqrt(new Random().nextDouble());
             double t = 2d * Math.PI * new Random().nextDouble();
             double x = w * Math.cos(t);

@@ -8,22 +8,22 @@ import com.idreesinc.celeste.commands.CommandFallingStar;
 import com.idreesinc.celeste.commands.CommandShootingStar;
 import com.idreesinc.celeste.utilities.Metrics;
 import com.idreesinc.celeste.utilities.UpdateChecker;
-import com.idreesinc.celeste.utilities.WorldLootGenerator;
+import com.idreesinc.celeste.config.CelesteConfigManager;
 
 public class Celeste extends JavaPlugin {
 
-    //public WeightedRandomBag<String> fallingStarDrops = new WeightedRandomBag<>();
-	public WorldLootGenerator worldLoot = new WorldLootGenerator(this);
+    public CelesteConfigManager configManager = new CelesteConfigManager(this);
 
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
+        // bStats metrics
         Metrics metrics = new Metrics(this, 8292);
 
         this.getCommand("celeste").setExecutor(new CommandCeleste(this));
         this.getCommand("shootingstar").setExecutor(new CommandShootingStar(this));
         this.getCommand("fallingstar").setExecutor(new CommandFallingStar(this));
-        worldLoot.runWorldLootGenerator();
+        configManager.processConfigs();
 
         BukkitRunnable stargazingTask = new Astronomer(this);
         stargazingTask.runTaskTimer(this, 0, 10);
@@ -33,7 +33,7 @@ public class Celeste extends JavaPlugin {
 
     public void reload() {
         reloadConfig();
-        worldLoot.runWorldLootGenerator();
+        configManager.processConfigs();
         checkForUpdates();
     }
 
@@ -47,6 +47,9 @@ public class Celeste extends JavaPlugin {
                         this.getLogger().info("There is an update available for Celeste (" + current + " -> " + api + ")");
                     }
                 } catch (NumberFormatException e) {
+                    if (this.getConfig().getBoolean("debug")) {
+                        this.getLogger().severe("Unable to process remote plugin version number '" + version + "'");
+                    }
                 }
             });
         }

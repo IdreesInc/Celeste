@@ -27,9 +27,9 @@ Inspired by the star fragments from The Legend of Zelda: Breath of the Wild, the
 Shooting stars and falling stars spawn on a per-world basis. This means that the number of players in a world does not affect the spawning rate. When either type of star is given a chance to spawn, the plugin will find a random player within that world and center the spawn in a large radius around said player, in order to avoid sending stars to unloaded chunks where they would never be found.
 Additionally, the worlds that shooting and falling stars can spawn in must meet the following conditions:
 - Must have players in the world currently
-- Must be nighttime (between 13000 and 23000 in game time)
+- Must be nighttime (between 13000 and 23000 in game time by default, but this can be configured)
 - Must be clear weather (no rain or snow)
-- Will not spawn in the nether or end
+- Will not spawn in the nether or end by default
 
 ## Configuration
 Installation is as simple as copying the newest build jar to your plugins folder. A configuration file is created by default, but if the file was created previously it may not include default values that were added in later updates. These values can be added easily by just copying and pasting the particular lines from the defaults below.
@@ -41,6 +41,10 @@ check-for-updates: true
 shooting-stars-enabled: true
 # Whether to spawn falling stars or not
 falling-stars-enabled: true
+# When to begin spawning shooting and falling stars
+begin-spawning-stars-time: 13000
+# When to stop spawning shooting and falling stars
+end-spawning-stars-time: 23000
 # The average number of shooting stars to create per minute for each world
 shooting-stars-per-minute: 6
 # The minimum y level where a shooting star can spawn
@@ -82,9 +86,13 @@ debug: false
 ### Falling Star Loot
 Falling stars drop loot wherever they fall, and spark for 10 seconds (200 ticks) by default to show their location. The loot they drop is randomly selected from the loot table in the config, with each material being given a weight. For instance, in the default config, there is a 60% chance for a diamond, 20% of an emerald, and 20% chance of a fire_charge. Experience also drops from falling stars, 100 points (not levels) by default.
 
-To define your own loot tables, add the `falling-stars-loot` attribute to your config (remember, you will have to create the plugin config if you haven't already done so) and list each item you want as well as the probability for it to appear. **The names of the items must be from the list provided [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html)**. Remember to only add materials available in your server version.
+**You have the option of defining a simple list of items in the config or using Minecraft's built-in [loot table](https://minecraft.fandom.com/wiki/Loot_table) system.** The config-based loot system is simpler as it doesn't require messing with data packs, but it is limited to only one item at a time and is unable to produce items with NBT data attached. For more advanced loot, you'll probably want to use loot tables. Note that both kinds of loot configurations can be used at the same time if you wish to do so for whatever reason.
 
-Here is an example of a custom loot configuration:
+#### Simple Config-Based Loot
+
+To define a simple list of potential loot that can appear, add the `falling-stars-loot` attribute to your config (remember, you will have to create the plugin config if it doesn't already exist) and list each item you want as well as the probability for it to appear. **The names of the items must be from the list provided [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html)**. Remember to only add materials available in your server version. Using this method, only one item will spawn at a time. If you want to spawn more items at once or add NBT data to the items spawned, you'll need to use loot tables (more on that below).
+
+Here is an example of a custom config-based loot configuration:
 
 ``` yaml
 falling-stars-loot:
@@ -93,6 +101,39 @@ falling-stars-loot:
   blaze_spawn_egg: 33
   blue_orchid: 33
  ```
+
+ #### Loot Tables
+
+Using Minecraft's built-in loot table feature, you can fully customize the type of items dropped, the number of items, and add whatever metadata you want. The catch is that loot tables are much more complex and require messing with external data files. [This](https://minecraft.tools/en/loots.php) tool can make it easier to work with loot tables, and a special thanks to [@Trico-Everfire](https://github.com/Trico-Everfire) for this feature's inclusion.
+
+Here is an example of how to use a built-in loot table for the falling star drops:
+
+``` yaml
+falling-stars-loot-table: "minecraft:chests/simple_dungeon"
+ ```
+
+### Custom World Settings
+
+If you would like to use different settings for particular worlds, you can use the `world-overrides` attribute in your config. World overrides give you the ability to easily change the plugin's functionality on a per-world basis. The following is an example of a config that has different settings for certain worlds:
+
+``` yaml
+falling-stars-spark-time: 200
+falling-stars-experience: 100
+falling-stars-loot:
+  diamond: 60
+  emerald: 20
+  fire_charge: 20
+# These settings override the above global settings for the specified worlds
+world-overrides:
+  some_world:
+    falling-stars-enabled: false
+  another_world:
+    falling-stars-loot-table: "minecraft:chests/simple_dungeon"
+    falling-stars-experience: 300
+    
+```
+
+In the above example, the worlds "some_world" and "another_world" have properties that override the global settings. For instance, falling stars are disabled in "some_world" and a loot table is used in place of the simple loot config for "another_world". Any worlds not mentioned in the `world-overrides` section will continue to follow the global configs or use built in defaults if the attribute is unchanged.
 
 ## Commands
 **/shootingstar [player]**  summons a shooting star in the sky directly above the player. If no player is given, spawns one above the summoner.  
