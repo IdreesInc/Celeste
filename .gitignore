@@ -5,6 +5,10 @@ out
 gen
 *.lnk
 target/
+.classpath
+.project
+.settings/
+.gitignore
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

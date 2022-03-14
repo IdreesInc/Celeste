@@ -1,9 +1,11 @@
 package com.idreesinc.celeste;
 
+import com.idreesinc.celeste.config.CelesteConfig;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +18,7 @@ public class FallingStar extends BukkitRunnable {
     private final Celeste celeste;
     private final Location location;
     private final Location dropLoc;
+    private final CelesteConfig config;
     private double y = 256;
     private boolean soundPlayed = false;
     private boolean lootDropped = false;
@@ -23,8 +26,9 @@ public class FallingStar extends BukkitRunnable {
 
     public FallingStar(Celeste celeste, Location location) {
         this.celeste = celeste;
-        sparkTimer = celeste.getConfig().getInt("falling-stars-spark-time");
         this.location = location;
+        config = celeste.configManager.getConfigForWorld(location.getWorld().getName());
+        sparkTimer = config.fallingStarsSparkTime;
         dropLoc = new Location(location.getWorld(), location.getX(),
                 location.getWorld().getHighestBlockAt(location).getY() + 1, location.getZ());
     }
@@ -45,18 +49,42 @@ public class FallingStar extends BukkitRunnable {
                     0,  0, new Random().nextDouble(), 0,
                     0.2, null, true);
         }
-        if (celeste.getConfig().getBoolean("falling-stars-sound-enabled") && !soundPlayed && y <= dropLoc.getY() + 75) {
-            location.getWorld().playSound(dropLoc, Sound.BLOCK_BELL_RESONATE, (float) celeste.getConfig().getDouble("falling-stars-volume"), 0.5f);
+        if (config.fallingStarsSoundEnabled && !soundPlayed && y <= dropLoc.getY() + 75) {
+            location.getWorld().playSound(dropLoc, Sound.BLOCK_BELL_RESONATE, (float) config.fallingStarsVolume, 0.5f);
             soundPlayed = true;
         }
         if (y <= dropLoc.getY()) {
             if (!lootDropped) {
-                if (celeste.fallingStarDrops.entries.size() > 0) {
-                    ItemStack drop = new ItemStack(Material.valueOf(celeste.fallingStarDrops.getRandom()), 1);
+                // Note that both simple loot and loot tables will drop if both are configured because why not
+                if (config.fallingStarSimpleLoot != null && config.fallingStarSimpleLoot.entries.size() > 0) {
+                    ItemStack drop = new ItemStack(Material.valueOf(config.fallingStarSimpleLoot.getRandom()), 1);
                     location.getWorld().dropItem(dropLoc, drop);
+                    if (celeste.getConfig().getBoolean("debug")) {
+                        celeste.getLogger().info("Spawned simple falling star loot");
+                    }
                 }
-                ExperienceOrb orb = (ExperienceOrb) dropLoc.getWorld().spawnEntity(dropLoc, EntityType.EXPERIENCE_ORB);
-                orb.setExperience(celeste.getConfig().getInt("falling-stars-experience"));
+                if (config.fallingStarLootTable != null) {
+                    // Armor stands are used as markers are not compatible with 1.14
+                    Entity marker = dropLoc.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+                    String command = String.format("execute at %s run loot spawn %s %s %s loot %s",
+                            marker.getUniqueId(),
+                            dropLoc.getX(),
+                            dropLoc.getY(),
+                            dropLoc.getZ(),
+                            config.fallingStarLootTable);
+                    celeste.getServer().dispatchCommand(celeste.getServer().getConsoleSender(), command);
+                    marker.remove();
+                    if (celeste.getConfig().getBoolean("debug")) {
+                        celeste.getLogger().info("Spawned falling star loot from loot table '" + config.fallingStarLootTable + "'");
+                    }
+                }
+                if (config.fallingStarsExperience > 0) {
+                    ExperienceOrb orb = (ExperienceOrb) dropLoc.getWorld().spawnEntity(dropLoc, EntityType.EXPERIENCE_ORB);
+                    orb.setExperience(config.fallingStarsExperience);
+                    if (celeste.getConfig().getBoolean("debug")) {
+                        celeste.getLogger().info("Dropping experience orbs with value " + config.fallingStarsExperience);
+                    }
+                }
                 lootDropped = true;
             }
             if (y % (step * 5) == 0) {

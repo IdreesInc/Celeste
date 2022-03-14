@@ -1,6 +1,8 @@
 check-for-updates: true
 shooting-stars-enabled: true
 falling-stars-enabled: true
+begin-spawning-stars-time: 13000
+end-spawning-stars-time: 23000
 shooting-stars-per-minute: 6
 shooting-stars-min-height: 130
 shooting-stars-max-height: 160
@@ -11,9 +13,9 @@ falling-stars-volume: 6
 falling-stars-spark-time: 200
 falling-stars-experience: 100
 falling-stars-loot:
-  diamond: 60
-  emerald: 20
-  fire_charge: 20
+ diamond: 60
+ emerald: 20
+ fire_charge: 20
 new-moon-meteor-shower: true
 shooting-stars-per-minute-during-meteor-showers: 15
 falling-stars-per-minute-during-meteor-showers: 0.3

@@ -1,5 +1,6 @@
 package com.idreesinc.celeste;
 
+import com.idreesinc.celeste.config.CelesteConfig;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -26,11 +27,12 @@ public class CelestialSphere {
 
     public static void createShootingStar(Celeste celeste, Location location, boolean approximate) {
         Location starLocation;
+        CelesteConfig config = celeste.configManager.getConfigForWorld(location.getWorld().getName());
         double w = 100 * Math.sqrt(new Random().nextDouble());
         double t = 2d * Math.PI * new Random().nextDouble();
         double x = w * Math.cos(t);
-        double range = Math.max(0, celeste.getConfig().getInt("shooting-stars-max-height") - celeste.getConfig().getInt("shooting-stars-min-height"));
-        double y = Math.max(new Random().nextDouble() * range + celeste.getConfig().getInt("shooting-stars-min-height"), location.getY() + 50);
+        double range = Math.max(0, config.shootingStarsMaxHeight - config.shootingStarsMinHeight);
+        double y = Math.max(new Random().nextDouble() * range + config.shootingStarsMinHeight, location.getY() + 50);
         double z = w * Math.sin(t);
         if (approximate) {
             starLocation = new Location(location.getWorld(), location.getX() + x, y, location.getZ() + z);
@@ -47,7 +49,7 @@ public class CelestialSphere {
                     direction.getY(), direction.getZ(), speed, null, true);
         }
         if (celeste.getConfig().getBoolean("debug")) {
-            celeste.getLogger().info("Shooting star at " + stringifyLocation(starLocation));
+            celeste.getLogger().info("Shooting star at " + stringifyLocation(starLocation) + " in world " + starLocation.getWorld().getName());
         }
     }
 
@@ -65,8 +67,9 @@ public class CelestialSphere {
 
     public static void createFallingStar(Celeste celeste, final Location location, boolean approximate) {
         Location target = location;
+        CelesteConfig config = celeste.configManager.getConfigForWorld(location.getWorld().getName());
         if (approximate) {
-            double fallingStarRadius = celeste.getConfig().getDouble("falling-stars-radius");
+            double fallingStarRadius = config.fallingStarsRadius;
             double w = fallingStarRadius * Math.sqrt(new Random().nextDouble());
             double t = 2d * Math.PI * new Random().nextDouble();
             double x = w * Math.cos(t);
@@ -76,7 +79,7 @@ public class CelestialSphere {
         BukkitRunnable fallingStarTask = new FallingStar(celeste, target);
         fallingStarTask.runTaskTimer(celeste, 0, 1);
         if (celeste.getConfig().getBoolean("debug")) {
-            celeste.getLogger().info("Falling star at " + stringifyLocation(target));
+            celeste.getLogger().info("Falling star at " + stringifyLocation(target) + " in world " + target.getWorld().getName());
         }
     }
 
