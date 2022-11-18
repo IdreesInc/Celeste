@@ -16,6 +16,7 @@ public class CelesteConfig {
     public int shootingStarsMaxHeight;
 
     public boolean fallingStarsEnabled;
+    public double fallingStarsMaxHeight;
     public double fallingStarsPerMinute;
     public double fallingStarsPerMinuteMeteorShower;
     public int fallingStarsRadius;
@@ -48,6 +49,7 @@ public class CelesteConfig {
         shootingStarsMaxHeight = section.getInt("shooting-stars-max-height");
 
         fallingStarsEnabled = section.getBoolean("falling-stars-enabled");
+        fallingStarsMaxHeight = section.getDouble("falling-stars-max-height");
         fallingStarsPerMinute = section.getDouble("falling-stars-per-minute");
         fallingStarsPerMinuteMeteorShower = section.getDouble("falling-stars-per-minute-during-meteor-showers");
         fallingStarsRadius = section.getInt("falling-stars-radius");
@@ -74,6 +76,7 @@ public class CelesteConfig {
         shootingStarsMaxHeight = section.getInt("shooting-stars-max-height", globalConfig.shootingStarsMaxHeight);
 
         fallingStarsEnabled = section.getBoolean("falling-stars-enabled", globalConfig.fallingStarsEnabled);
+        fallingStarsMaxHeight = section.getDouble("falling-stars-max-height", globalConfig.fallingStarsMaxHeight);
         fallingStarsPerMinute = section.getDouble("falling-stars-per-minute", globalConfig.fallingStarsPerMinute);
         fallingStarsPerMinuteMeteorShower = section.getDouble("falling-stars-per-minute-during-meteor-showers", globalConfig.fallingStarsPerMinuteMeteorShower);
         fallingStarsRadius = section.getInt("falling-stars-radius", globalConfig.fallingStarsRadius);

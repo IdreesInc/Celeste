@@ -7,6 +7,7 @@ shooting-stars-per-minute: 6
 shooting-stars-min-height: 130
 shooting-stars-max-height: 160
 falling-stars-per-minute: 0.2
+falling-stars-max-height: 330
 falling-stars-radius: 75
 falling-stars-sound-enabled: true
 falling-stars-volume: 6
