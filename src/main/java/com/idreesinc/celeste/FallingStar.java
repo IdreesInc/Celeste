@@ -19,7 +19,7 @@ public class FallingStar extends BukkitRunnable {
     private final Location location;
     private final Location dropLoc;
     private final CelesteConfig config;
-    private double y = 320;
+    private double y = 330;
     private boolean soundPlayed = false;
     private boolean lootDropped = false;
     private int sparkTimer;
