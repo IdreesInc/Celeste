@@ -22,3 +22,8 @@ falling-stars-per-minute-during-meteor-showers: 0.3
 shooting-stars-summon-text: "Make a wish!"
 falling-stars-summon-text: "Make a wish!"
 debug: false
+# Adaptive settings
+# This settings will increase falling-stars-per-minute and shooting-stars-per-minute depending on player count.
+# 0 is disabled, 1 will increase it by 0.1 for every player, 2 will increase it by 0.2 for every 2 players etc
+adaptive-falling-stars: 0
+adaptive-shooting-stars: 0

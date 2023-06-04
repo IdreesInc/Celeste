@@ -43,8 +43,10 @@ public class Astronomer extends BukkitRunnable {
                 shootingStarChance = config.shootingStarsPerMinuteMeteorShower / 120d;
                 fallingStarChance = config.fallingStarsPerMinuteMeteorShower / 120d;
             } else {
-                shootingStarChance = config.shootingStarsPerMinute / 120d;
-                fallingStarChance = config.fallingStarsPerMinute / 120d;
+                double shootingStarsPerMin = ((world.getPlayers().size() / config.adaptiveShootingStars)*0.1) + config.shootingStarsPerMinute;
+                shootingStarChance = shootingStarsPerMin / 120d;
+                double fallingStarPerMin = ((world.getPlayers().size() / config.adaptiveFallingStars)*0.1) + config.fallingStarsPerMinute;
+                fallingStarChance = fallingStarPerMin / 120d;
             }
 
             if (config.shootingStarsEnabled && new Random().nextDouble() <= shootingStarChance) {
