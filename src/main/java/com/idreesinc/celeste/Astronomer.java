@@ -2,6 +2,7 @@ package com.idreesinc.celeste;
 
 import com.idreesinc.celeste.config.CelesteConfig;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -39,13 +40,17 @@ public class Astronomer extends BukkitRunnable {
 
             double shootingStarChance;
             double fallingStarChance;
+            double shootingStarsPerMin;
+            double fallingStarPerMin;
             if (config.newMoonMeteorShower && (world.getFullTime() / 24000) % 8 == 4) {
-                shootingStarChance = config.shootingStarsPerMinuteMeteorShower / 120d;
-                fallingStarChance = config.fallingStarsPerMinuteMeteorShower / 120d;
-            } else {
-                double shootingStarsPerMin = ((world.getPlayers().size() / config.adaptiveShootingStars)*0.1) + config.shootingStarsPerMinute;
+                shootingStarsPerMin = ((world.getPlayers().size() / config.adaptiveShootingStars)*0.1) + config.shootingStarsPerMinuteMeteorShower;
                 shootingStarChance = shootingStarsPerMin / 120d;
-                double fallingStarPerMin = ((world.getPlayers().size() / config.adaptiveFallingStars)*0.1) + config.fallingStarsPerMinute;
+                fallingStarPerMin = ((world.getPlayers().size() / config.adaptiveFallingStars)*0.1) + config.fallingStarsPerMinuteMeteorShower;
+                fallingStarChance = fallingStarPerMin / 120d;
+            } else {
+                shootingStarsPerMin = ((world.getPlayers().size() / config.adaptiveShootingStars)*0.1) + config.shootingStarsPerMinute;
+                shootingStarChance = shootingStarsPerMin / 120d;
+                fallingStarPerMin = ((world.getPlayers().size() / config.adaptiveFallingStars)*0.1) + config.fallingStarsPerMinute;
                 fallingStarChance = fallingStarPerMin / 120d;
             }
 
