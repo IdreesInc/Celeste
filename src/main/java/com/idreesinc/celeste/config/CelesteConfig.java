@@ -28,6 +28,7 @@ public class CelesteConfig {
 
     public double adaptiveFallingStars;
     public double adaptiveShootingStars;
+    public boolean adaptiveGlobalPlayerCount;
 
     public CelesteConfig(ConfigurationSection section) {
         // Used to build the global config
@@ -65,6 +66,8 @@ public class CelesteConfig {
         }
         adaptiveShootingStars = section.getDouble("adaptive-shooting-stars");
         adaptiveFallingStars = section.getDouble("adaptive-falling-stars");
+
+        adaptiveGlobalPlayerCount = section.getBoolean("adaptive-use-global-player-count");
     }
 
     private void buildFromConfigurationSectionWithGlobal(ConfigurationSection section, CelesteConfig globalConfig) {
