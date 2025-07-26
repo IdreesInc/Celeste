@@ -7,6 +7,10 @@ Celeste is a simple plugin that adds shooting stars to your Minecraft server. In
 
 [Learn more about Celeste (the plugin, not the owl)](https://idreesinc.com/about-celeste.html?utm_source=github&utm_medium=readme&utm_campaign=celeste)
 
+<a href="https://discord.gg/6yxE9prcNc" target="_blank">
+	<img alt="Discord" src="https://img.shields.io/discord/1398471368403583120?logo=discord&logoColor=fff&label=discord&color=5865F2">
+</a>
+
 ## Features
 - Add shooting stars to the night sky, with configurable frequency
 - Find rare falling stars that deliver precious materials in a sparkling package
