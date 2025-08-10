@@ -19,7 +19,7 @@ public class FallingStar extends BukkitRunnable {
     private final Location location;
     private final Location dropLoc;
     private final CelesteConfig config;
-    private double y = 256;
+    private double y = 330;
     private boolean soundPlayed = false;
     private boolean lootDropped = false;
     private int sparkTimer;
@@ -31,10 +31,11 @@ public class FallingStar extends BukkitRunnable {
         sparkTimer = config.fallingStarsSparkTime;
         dropLoc = new Location(location.getWorld(), location.getX(),
                 location.getWorld().getHighestBlockAt(location).getY() + 1, location.getZ());
+        y = celeste.getConfig().getDouble("falling-stars-max-height");
     }
 
     public void run() {
-        double step = 1;
+        double step = 2; // Speed of fall increased to compensate for increased height.
         location.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location.getX(), y, location.getZ(),
                 0,  0,  new Random().nextDouble(), 0,
                 0.2, null, true);
@@ -49,7 +50,7 @@ public class FallingStar extends BukkitRunnable {
                     0,  0, new Random().nextDouble(), 0,
                     0.2, null, true);
         }
-        if (config.fallingStarsSoundEnabled && !soundPlayed && y <= dropLoc.getY() + 75) {
+        if (config.fallingStarsSoundEnabled && !soundPlayed && y <= dropLoc.getY() + 75*step) {
             location.getWorld().playSound(dropLoc, Sound.BLOCK_BELL_RESONATE, (float) config.fallingStarsVolume, 0.5f);
             soundPlayed = true;
         }
