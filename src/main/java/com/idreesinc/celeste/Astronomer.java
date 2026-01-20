@@ -2,6 +2,7 @@ package com.idreesinc.celeste;
 
 import com.idreesinc.celeste.config.CelesteConfig;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -39,14 +40,37 @@ public class Astronomer extends BukkitRunnable {
 
             double shootingStarChance;
             double fallingStarChance;
-            if (config.newMoonMeteorShower && (world.getFullTime() / 24000) % 8 == 4) {
-                shootingStarChance = config.shootingStarsPerMinuteMeteorShower / 120d;
-                fallingStarChance = config.fallingStarsPerMinuteMeteorShower / 120d;
-            } else {
-                shootingStarChance = config.shootingStarsPerMinute / 120d;
-                fallingStarChance = config.fallingStarsPerMinute / 120d;
+            double shootingStarsPerMin;
+            double fallingStarPerMin;
+            //adaptive check
+            double adaptiveShootingStarsChance = 0;
+            double adaptiveFallingStarsChance = 0;
+            if(config.adaptiveShootingStars !=0){
+                if(config.adaptiveGlobalPlayerCount){
+                    adaptiveShootingStarsChance = (celeste.getServer().getOnlinePlayers().size() / config.adaptiveShootingStars) * 0.1;
+                } else {
+                    adaptiveShootingStarsChance = (world.getPlayers().size() / config.adaptiveShootingStars)*0.1;
+                }
             }
 
+            if(config.adaptiveFallingStars !=0){
+                if(config.adaptiveGlobalPlayerCount){
+                    adaptiveFallingStarsChance = (celeste.getServer().getOnlinePlayers().size() / config.adaptiveFallingStars) * 0.1;
+                } else {
+                    adaptiveFallingStarsChance = (world.getPlayers().size() / config.adaptiveFallingStars)*0.1;
+                }
+            }
+
+            if(config.newMoonMeteorShower && (world.getFullTime() / 24000) % 8 == 4) {
+                shootingStarsPerMin = adaptiveShootingStarsChance + config.shootingStarsPerMinuteMeteorShower;
+                fallingStarPerMin = adaptiveFallingStarsChance + config.fallingStarsPerMinuteMeteorShower;
+            } else {
+                shootingStarsPerMin = adaptiveShootingStarsChance + config.shootingStarsPerMinute;
+                fallingStarPerMin = adaptiveFallingStarsChance + config.fallingStarsPerMinute;
+            }
+
+            shootingStarChance = shootingStarsPerMin / 120d;
+            fallingStarChance = fallingStarPerMin / 120d;
             if (config.shootingStarsEnabled && new Random().nextDouble() <= shootingStarChance) {
                 CelestialSphere.createShootingStar(celeste,
                         world.getPlayers().get(new Random().nextInt(world.getPlayers().size())));

@@ -26,6 +26,10 @@ public class CelesteConfig {
     public WeightedRandomBag<String> fallingStarSimpleLoot;
     public String fallingStarLootTable;
 
+    public double adaptiveFallingStars;
+    public double adaptiveShootingStars;
+    public boolean adaptiveGlobalPlayerCount;
+
     public CelesteConfig(ConfigurationSection section) {
         // Used to build the global config
         buildFromConfigurationSection(section);
@@ -60,6 +64,10 @@ public class CelesteConfig {
         if (section.isSet("falling-stars-loot")) {
             fallingStarSimpleLoot = calculateSimpleLoot(section.getConfigurationSection("falling-stars-loot"));
         }
+        adaptiveShootingStars = section.getDouble("adaptive-shooting-stars");
+        adaptiveFallingStars = section.getDouble("adaptive-falling-stars");
+
+        adaptiveGlobalPlayerCount = section.getBoolean("adaptive-use-global-player-count");
     }
 
     private void buildFromConfigurationSectionWithGlobal(ConfigurationSection section, CelesteConfig globalConfig) {
@@ -81,7 +89,8 @@ public class CelesteConfig {
         fallingStarsVolume = section.getDouble("falling-stars-volume", globalConfig.fallingStarsVolume);
         fallingStarsSparkTime = section.getInt("falling-stars-spark-time", globalConfig.fallingStarsSparkTime);
         fallingStarsExperience = section.getInt("falling-stars-experience", globalConfig.fallingStarsExperience);
-
+        adaptiveShootingStars = section.getDouble("adaptive-shooting-stars",globalConfig.fallingStarsExperience);
+        adaptiveFallingStars = section.getDouble("adaptive-falling-stars",globalConfig.fallingStarsExperience);
         if (section.isSet("falling-stars-loot") || section.isSet("falling-stars-loot-table")) {
             // Ensure that neither type of loot is inherited from the global config if any overrides are used
             // This means that even if the global config sets simple loot and the world config overrides just loot
